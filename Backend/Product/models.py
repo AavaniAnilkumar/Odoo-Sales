@@ -16,7 +16,7 @@ class Products(models.Model):
     product_image = models.ImageField(upload_to='product_images/', null=True, blank=True)
     product_type = models.CharField(max_length=20, choices=PRODUCT_TYPES)
     
-    customer_tax = models.DecimalField(max_digits=10, decimal_places=2,default=0.00)
+    customer_tax = models.DecimalField(max_digits=10, decimal_places=2)
     cost = models.DecimalField(max_digits=10, decimal_places=2)
     sales_price = models.DecimalField(max_digits=10, decimal_places=2)
     product_category = models.CharField(max_length=100)
