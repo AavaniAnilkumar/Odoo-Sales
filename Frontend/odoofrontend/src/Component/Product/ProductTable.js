@@ -44,6 +44,7 @@ const DetailsTable = ({ selectedProduct }) => {
             <StyledTableCell>Product Category</StyledTableCell>
             <StyledTableCell>Company</StyledTableCell>
             <StyledTableCell>Sales Price</StyledTableCell>
+           
             {/* <StyledTableCell>Customer Tax</StyledTableCell> */}
 
             <StyledTableCell>Cost</StyledTableCell>
@@ -56,6 +57,7 @@ const DetailsTable = ({ selectedProduct }) => {
             <StyledTableCell>{selectedProduct.product_category}</StyledTableCell>
             <StyledTableCell>{selectedProduct.company}</StyledTableCell>
             <StyledTableCell>{selectedProduct.sales_price}</StyledTableCell>
+           
             {/* <StyledTableCell>{selectedProduct.customer_tax}</StyledTableCell> */}
             <StyledTableCell>{selectedProduct.cost}</StyledTableCell>
 

@@ -52,8 +52,8 @@ export default function Product() {
     company: '',
   });
 
-  const [categories, setCategories] = useState([]);
-  const [companies, setCompanies] = useState([]);
+  // const [categories, setCategories] = useState([]);
+  // const [companies, setCompanies] = useState([]);
 
   const [productTypes, setProductTypes] = useState([]);
   const [updatedProducts, setUpdatedProducts] = useState([]);
@@ -61,22 +61,22 @@ export default function Product() {
 
 
 
-  useEffect(() => {
-    const fetchCategoriesAndCompanies = async () => {
-      try {
-        const categoryResponse = await axios.get('http://localhost:8000/product-category/');
-        setCategories(categoryResponse.data);
+  // useEffect(() => {
+  //   const fetchCategoriesAndCompanies = async () => {
+  //     try {
+  //       const categoryResponse = await axios.get('http://localhost:8000/product-category/');
+  //       setCategories(categoryResponse.data);
 
-        const companyResponse = await axios.get('http://localhost:8000/company/');
-        setCompanies(companyResponse.data);
+  //       const companyResponse = await axios.get('http://localhost:8000/company/');
+  //       setCompanies(companyResponse.data);
 
-        setProductTypes(PRODUCT_TYPES);
-      } catch (error) {
-        console.error('Error fetching categories and companies', error);
-      }
-    };
-    fetchCategoriesAndCompanies();
-  }, []);
+  //       setProductTypes(PRODUCT_TYPES);
+  //     } catch (error) {
+  //       console.error('Error fetching categories and companies', error);
+  //     }
+  //   };
+  //   fetchCategoriesAndCompanies();
+  // }, []);
 
 
   const handleSubmit = async () => {
@@ -280,8 +280,7 @@ formData.append('company', productData.company);  // Ensure this is a valid ID o
       </Modal>
      
       <div>
-        
-        {/* <CollapsibleTable /> */}<CustomizedTables updatedProducts={updatedProducts}/>
+        <CustomizedTables updatedProducts={updatedProducts}/>
       </div>
 
     

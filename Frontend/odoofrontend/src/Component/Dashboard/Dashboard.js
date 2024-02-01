@@ -188,7 +188,7 @@ const Dashboard = ({username}) => {
                {currentPage === 'Company' && <Company />}
                {/* {currentPage == 'Sale-orders' && <SaleOrder />} */}
                {/* {currentPage === 'Sale-Order' && <SaleOrderTable />} */}
-               {currentPage === 'Sale-Order' && <SaleOrderForm />}
+               {/* {currentPage === 'Sale-Order' && <SaleOrderForm />} */}
              </Grid>
            </Container>
     </ThemeProvider>
