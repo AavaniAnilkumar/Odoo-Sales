@@ -38,14 +38,7 @@ urlpatterns = [
     path('customer_contact/<customer_id>/',customer_contact,name='customer_contact'),
     path('customer_contact/<customer_id>/update/',update_customer_contact,name='update_customer_contact'),
 
-    path('saleorders/', SaleOrderListCreateView.as_view(), name='saleorder-list-create'),
-    path('saleorders/<int:pk>/', SaleOrderDetailView.as_view(), name='saleorder-detail'),
-    path('saleorders/<int:pk>/items/', SaleOrderItemCreateView.as_view(), name='saleorder-item-create'),
-    path('saleorders/<int:sale_order_id>/itemlist/', SaleOrderItemListAPIView.as_view(), name='saleorder-item-list'),
-    path('saleorderitems/', SaleOrderItemListAllView.as_view(), name='saleorder-item-list'),
-    path('saleorderitems/<int:pk>/', SaleOrderItemDeleteView.as_view(), name='saleorder-item-delete'),
-    path('saleorderitems/<int:pk>/total_amount/', SaleOrderTotalAmountView.as_view(), name='saleorder-total-amount'),
-
+ 
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
