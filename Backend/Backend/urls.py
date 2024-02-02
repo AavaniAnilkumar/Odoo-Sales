@@ -37,8 +37,9 @@ urlpatterns = [
     path('contacts/<int:pk>/', retrieve_contact, name='retrieve-contact'),
     path('customer_contact/<customer_id>/',customer_contact,name='customer_contact'),
     path('customer_contact/<customer_id>/update/',update_customer_contact,name='update_customer_contact'),
-
- 
+    path('saleorders/', SaleOrderListCreateView.as_view(), name='saleorder-list-create'),
+    path('orderproducts/', OrderProductListCreateView.as_view(), name='orderproduct-list-create'),
+   
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

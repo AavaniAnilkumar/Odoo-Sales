@@ -163,3 +163,15 @@ def update_customer_contact(request, customer_id):
         return Response({'error': 'No contact details found for the specified customer'}, status=status.HTTP_404_NOT_FOUND)
     
 
+class SaleOrderListCreateView(generics.ListCreateAPIView):
+    queryset = SaleOrder.objects.all()
+    serializer_class = SaleOrderSerializer
+    def get_serializer(self, *args, **kwargs):
+        if isinstance(kwargs.get('data', {}), list):
+            kwargs['many'] = True
+        return super().get_serializer(*args, **kwargs)
+
+class OrderProductListCreateView(generics.ListCreateAPIView):
+    queryset = OrderProduct.objects.all()
+    serializer_class = OrderProductSerializer
+
