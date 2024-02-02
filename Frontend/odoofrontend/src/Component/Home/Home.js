@@ -23,7 +23,7 @@ const Home = () => {
             alt={product.product_name}
             className="fade-in"
             style={{ maxWidth: '200px', maxHeight: '200px', margin: '30px' ,
-            border: '3px solid #7d7e81',
+           
 
             borderRadius: '8px',
 

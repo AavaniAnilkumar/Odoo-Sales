@@ -40,10 +40,10 @@ const DetailsTable = ({ selectedProduct }) => {
       <Table sx={{ minWidth: 700 }} aria-label="details table">
         <TableHead>
           <TableRow>
-            <StyledTableCell>Product Type</StyledTableCell>
-            <StyledTableCell>Product Category</StyledTableCell>
-            <StyledTableCell>Company</StyledTableCell>
-            <StyledTableCell>Sales Price</StyledTableCell>
+            <StyledTableCell style={{fontSize: '15px'}}>Product Type</StyledTableCell>
+            <StyledTableCell style={{fontSize: '15px'}}>Product Category</StyledTableCell>
+            <StyledTableCell style={{fontSize: '15px'}}>Company</StyledTableCell>
+            <StyledTableCell style={{fontSize: '15px'}}>Sales Price</StyledTableCell>
            
             {/* <StyledTableCell>Customer Tax</StyledTableCell> */}
 
@@ -53,40 +53,20 @@ const DetailsTable = ({ selectedProduct }) => {
         </TableHead>
         <TableBody>
           <StyledTableRow key={selectedProduct.id}>
-            <StyledTableCell>{selectedProduct.product_type}</StyledTableCell>
-            <StyledTableCell>{selectedProduct.product_category}</StyledTableCell>
-            <StyledTableCell>{selectedProduct.company}</StyledTableCell>
-            <StyledTableCell>{selectedProduct.sales_price}</StyledTableCell>
+            <StyledTableCell style={{fontSize: '14px'}}>{selectedProduct.product_type}</StyledTableCell>
+            <StyledTableCell style={{fontSize: '14px'}}>{selectedProduct.product_category}</StyledTableCell>
+            <StyledTableCell style={{fontSize: '14px'}}>{selectedProduct.company}</StyledTableCell>
+            <StyledTableCell style={{fontSize: '14px'}}>{selectedProduct.sales_price}</StyledTableCell>
            
             {/* <StyledTableCell>{selectedProduct.customer_tax}</StyledTableCell> */}
-            <StyledTableCell>{selectedProduct.cost}</StyledTableCell>
+            <StyledTableCell style={{fontSize: '14px'}}>{selectedProduct.cost}</StyledTableCell>
 
             {/* Add more cells here */}
           </StyledTableRow>
         </TableBody>
       </Table>
     </TableContainer>
-    // <Paper elevation={3} style={{ padding: '20px', marginTop: '-400px', marginLeft: '900px', width: 'fit-content' }}>
-    //   <Typography variant="h6">Product Details</Typography>
-    //   <Typography variant="body1">
-    //     <strong>Product Type:</strong> {selectedProduct.product_type}
-    //   </Typography>
-    //   <Typography variant="body1">
-    //     <strong>Product Category:</strong> {selectedProduct.product_category}
-    //   </Typography>
-    //   <Typography variant="body1">
-    //     <strong>Company:</strong> {selectedProduct.company}
-    //   </Typography>
-    //   <Typography variant="body1">
-    //     <strong>Sales Price:</strong> {selectedProduct.sales_price}
-    //   </Typography>
-    //   {/* Uncomment the next line if customer_tax is needed */}
-    //   {/* <Typography variant="body1"><strong>Customer Tax:</strong> {selectedProduct.customer_tax}</Typography> */}
-    //   <Typography variant="body1">
-    //     <strong>Cost:</strong> {selectedProduct.cost}
-    //   </Typography>
-    //   {/* Add more fields here */}
-    // </Paper>
+
   );
 };
 
@@ -132,14 +112,14 @@ export default function CustomizedTables({ updatedProducts}) {
         <Table sx={{ minWidth: 500 }} aria-label="customized table">
           <TableHead>
             <TableRow>
-              <StyledTableCell>Product Name</StyledTableCell>
-              <StyledTableCell>Product_Image</StyledTableCell>
+              <StyledTableCell style={{fontSize: '15px'}}>Product Name</StyledTableCell>
+              <StyledTableCell style={{fontSize: '15px'}}>Product_Image</StyledTableCell>
             </TableRow>
           </TableHead>
           <TableBody>
             {products.map((product) => (
               <StyledTableRow key={product.id} onClick={() => handleRowClick(product)}>
-                <StyledTableCell component="th" scope="row" 
+                <StyledTableCell component="th" scope="row" style={{fontSize: '14px'}}
                 >
                   {product.product_name}
                 </StyledTableCell>

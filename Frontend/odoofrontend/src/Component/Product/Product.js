@@ -16,6 +16,7 @@ import CollapsibleTable from './ProductTable';
 import CustomizedTables from './ProductTable';
 import BASE_URL from '../../config';
 import { PRODUCT_TYPES } from '../../utils/product';
+
 const VisuallyHiddenInput = styled('input')({
   clip: 'rect(0 0 0 0)',
   clipPath: 'inset(50%)',
@@ -60,25 +61,6 @@ export default function Product() {
 
 
 
-
-  // useEffect(() => {
-  //   const fetchCategoriesAndCompanies = async () => {
-  //     try {
-  //       const categoryResponse = await axios.get('http://localhost:8000/product-category/');
-  //       setCategories(categoryResponse.data);
-
-  //       const companyResponse = await axios.get('http://localhost:8000/company/');
-  //       setCompanies(companyResponse.data);
-
-  //       setProductTypes(PRODUCT_TYPES);
-  //     } catch (error) {
-  //       console.error('Error fetching categories and companies', error);
-  //     }
-  //   };
-  //   fetchCategoriesAndCompanies();
-  // }, []);
-
-
   const handleSubmit = async () => {
     console.log("Submitting data", productData);
   
@@ -87,7 +69,7 @@ formData.append('product_name', productData.productName);
 formData.append('product_image', productData.productImage);
 formData.append('product_type', productData.productType);
 formData.append('sales_price', productData.salesPrice);
-// formData.append('customer_tax', productData.customerTax);
+formData.append('customer_tax', productData.customerTax);
 formData.append('cost',productData.cost);
 
 formData.append('product_category', productData.productCategory);  // Ensure this is a valid ID or value
@@ -96,7 +78,7 @@ formData.append('company', productData.company);  // Ensure this is a valid ID o
   
     try {
       console.log('Sending request');
-      const response = await axios.post(`${BASE_URL}/product/`, formData, {
+      const response = await axios.post('http://localhost:8000/product/', formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
@@ -108,6 +90,17 @@ formData.append('company', productData.company);  // Ensure this is a valid ID o
         console.log('Product Added Successfully');
         
         handleClose();
+        // Clear the form fields
+        setProductData({
+          productName: '',
+          productImage: null,
+          productType: '',
+          salesPrice: '',
+          customerTax: '',
+          cost: '',  // Add other fields as needed
+          productCategory: '',
+          company: '',
+        });
         const updatedProducts = await axios.get('http://localhost:8000/product/');
         setUpdatedProducts(response.data);
         // Optionally, you can refresh the product list or perform other actions after successful submission.
@@ -161,7 +154,7 @@ formData.append('company', productData.company);  // Ensure this is a valid ID o
 
   return (
     <div>
-      <h1 style={{marginLeft:'10px',fontFamily:'serif'}}> Product Page </h1>
+      <h1 style={{marginLeft:'10px',fontFamily:'serif'}}> Products </h1>
       <div style={{ display: 'flex', justifyContent: 'space-between', marginLeft: '800px' }}>
   <Button onClick={handleOpen} style={{ backgroundColor: 'blue', color: 'white', marginRight: '10px' }}>
     Add Products

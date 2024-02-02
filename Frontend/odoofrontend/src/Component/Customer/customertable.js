@@ -154,12 +154,12 @@ const CustomerTable = ({ shouldRefreshTable, setShouldRefreshTable }) => {
     
 
   return (
-    <div style={{width:'100%', marginLeft:'150px'}}>
+    <div style={{width:'50%', marginLeft:'290px', marginTop: '50px'}}>
       {!showCreateCustomerPage ? (
         <>
-        <h1 style={{marginLeft:'10px',fontFamily:'serif'}}>Customer</h1>
-          <TableContainer component={Paper}>
-            <Table>
+         <h1 style={{marginLeft:'10px',fontFamily:'serif'}}> Customer </h1> <br />
+          <TableContainer component={Paper}  >
+            <Table  >
               <TableHead>
                 <TableRow>
                   <TableCell>Photo</TableCell>
@@ -170,13 +170,7 @@ const CustomerTable = ({ shouldRefreshTable, setShouldRefreshTable }) => {
               <TableBody>
                 {customers.map((customer) => (
                   <TableRow key={customer.id}>
-                    {/* <TableCell>
-                      {customer.photo ? (
-                        <Avatar alt={customer.name} src={customer.photo} variant="circular" />
-                      ) : (
-                        <Avatar>{customer.name.charAt(0)}</Avatar>
-                      )}
-                    </TableCell> */}
+                   
                      <TableCell>
     {customer.photo ? (
       <Avatar src={`http://localhost:8000${customer.photo}`} variant="circular" />
@@ -264,11 +258,7 @@ const CustomerTable = ({ shouldRefreshTable, setShouldRefreshTable }) => {
       </div>
     ) : null}
   </DialogContent>
-  {/* <DialogActions>
-    <Button onClick={handleCloseDetailsDialog} color="primary">Close</Button>
-    <Button onClick={handleEditCustomer} color="primary">Edit</Button>
-
-  </DialogActions> */}
+ 
   <DialogActions>
     {!editedCustomer ? (
       <>

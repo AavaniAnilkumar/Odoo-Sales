@@ -1,6 +1,6 @@
 .App {
   text-align: center;
-  /* background-color: #7d7e81; */
+  /* background-color: rgb(232, 229, 221); */
 
  
 }
@@ -39,4 +39,23 @@
   to {
     transform: rotate(360deg);
   }
+}
+/* App.css */
+/* 
+body {
+  margin: 0;
+  padding: 0;
+  background-image: url('./assets/Background.jpg');
+  background-size: cover; 
+  background-position: center; 
+  height: 100vh;
+} */
+
+
+body {
+  margin: 0;
+  padding: 0;
+  background-image: url('./assets/Background.svg');
+  background-position: center;
+  height: 100vh;
 }

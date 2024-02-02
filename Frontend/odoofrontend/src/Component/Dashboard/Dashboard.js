@@ -60,8 +60,8 @@ import ProductCategory from '../Product/ProductCategory';
 import Company from '../Product/Company';
 import CustomerForm from '../Customer/customerform';
 import CustomerTable from '../Customer/customertable';
-import SaleOrderForm from '../Sale-Order/SaleOrder';
-import SaleOrderTable from '../Sale-Order/SaleOrderTable';
+
+import SaleOrder from '../Sale-Order/SaleOrder';
 
 function Copyright(props) {
   return (
@@ -186,9 +186,7 @@ const Dashboard = ({username}) => {
                {currentPage == 'Product' && <Product />}
                {currentPage === 'ProductCategory' && <ProductCategory />}
                {currentPage === 'Company' && <Company />}
-               {/* {currentPage == 'Sale-orders' && <SaleOrder />} */}
-               {/* {currentPage === 'Sale-Order' && <SaleOrderTable />} */}
-               {/* {currentPage === 'Sale-Order' && <SaleOrderForm />} */}
+               {currentPage === 'Sale-Order' && <SaleOrder />}
              </Grid>
            </Container>
     </ThemeProvider>
