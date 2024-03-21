@@ -55,7 +55,10 @@ body {
 body {
   margin: 0;
   padding: 0;
-  background-image: url('./assets/Background.svg');
+  /* background-image: url('./assets/Background.svg'); */
+  background-color: #f1eff1;
+  
   background-position: center;
   height: 100vh;
+
 }

@@ -1,53 +1,77 @@
-
-
+import { AppBar, IconButton, Toolbar, Typography, Menu, MenuItem, Button, useMediaQuery } from "@mui/material";
+import MenuIcon from '@mui/icons-material/Menu';
 import React, { useState } from 'react';
-import './navbar.css';
-import { AppBar, Button, IconButton, Toolbar, Typography,Box,Menu,MenuList, MenuItem } from "@mui/material";
+
 function Navbar({ onPageChange }) {
-  const [active, setActive] = useState("nav__menu");
-  const [icon, setIcon] = useState("nav__toggler");
+  const [anchorEl, setAnchorEl] = useState(null);
+  const isMobile = useMediaQuery('(max-width:425px)');
 
+  const handleMenuOpen = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
 
-
-  const navToggle = () => {
-    setActive(active === "nav__menu" ? "nav_menu nav_active" : "nav__menu");
-    setIcon(icon === "nav__toggler" ? "nav__toggler toggle" : "nav__toggler");
+  const handleMenuClose = () => {
+    setAnchorEl(null);
   };
 
   const handlePageChange = (page) => {
     onPageChange(page);
-    setActive("nav__menu");
-    setIcon("nav__toggler");
+    handleMenuClose();
   };
 
   return (
-    <nav className="nav">
-      <a href="#" className="nav__brand">
-        {/* Loyal IT Solutions */}
-      </a>
-      <ul className={active}>
-        <li className="nav__item">
-          <button className="nav__link" onClick={() => handlePageChange('Home')}>
-            Home
-          </button>
-        </li>
-        <li className="nav__item">
-          <button className="nav__link" onClick={() => handlePageChange('Customer')}>
-            Customer
-          </button>
-        </li>
-        <li className="nav__item">
-          <button className="nav__link" onClick={() => handlePageChange('Product')}>
-            Products
-          </button>
-        </li>
-        <li className="nav__item">
-          <button className="nav__link" onClick={() => handlePageChange('Sale-Order')}>
-            Sales-Order
-          </button>
-        </li>
-      </ul>
-    </nav>
+    <AppBar position="static" className="nav" style={{ backgroundColor: '#2c3068', width: '100%' }}>
+      <Toolbar>
+        {isMobile ? (
+          // Display only the IconButton on mobile
+          <IconButton
+            size="large"
+            edge="start"
+            color="inherit"
+            aria-label="menu"
+            onClick={handleMenuOpen}
+          >
+            <MenuIcon />
+          </IconButton>
+        ) : (
+          // Display the brand link and buttons on larger screens
+          <>
+            {/* Your brand link */}
+            <Typography variant="h6" component="div" sx={{ flexGrow: 1, textAlign: 'center', marginLeft: 'auto' }}>
+              <a href='https://www.loyalitsolutions.com' style={{ color: 'white', textDecoration: 'none' }}> Loyal IT Solutions</a>
+            </Typography>
+
+            {/* Menu items for larger screens */}
+            <div className="nav__menu" sx={{ display: 'flex', marginLeft: 'auto' }}>
+              <Button className="nav__link" sx={{ color: 'white' }} onClick={() => handlePageChange('Home')}>
+                Home
+              </Button>
+              <Button className="nav__link" sx={{ color: 'white' }} onClick={() => handlePageChange('Customer')}>
+                Customer
+              </Button>
+              <Button className="nav__link" sx={{ color: 'white' }} onClick={() => handlePageChange('Product')}>
+                Products
+              </Button>
+              <Button className="nav__link" sx={{ color: 'white' }} onClick={() => handlePageChange('Sale-Order')}>
+                Sales-Order
+              </Button>
+            </div>
+          </>
+        )}
+
+        {/* Mobile menu */}
+        <Menu
+          anchorEl={anchorEl}
+          open={Boolean(anchorEl)}
+          onClose={handleMenuClose}
+        >
+          <MenuItem onClick={() => handlePageChange('Home')}>Home</MenuItem>
+          <MenuItem onClick={() => handlePageChange('Customer')}>Customer</MenuItem>
+          <MenuItem onClick={() => handlePageChange('Product')}>Products</MenuItem>
+          <MenuItem onClick={() => handlePageChange('Sale-Order')}>Sales-Order</MenuItem>
+        </Menu>
+      </Toolbar>
+    </AppBar>
   );
 }
 
@@ -55,76 +79,4 @@ export default Navbar;
 
 
 
-// import ProductionQuantityLimitsIcon from '@mui/icons-material/ProductionQuantityLimits';
-// import MenuIcon from '@mui/icons-material/Menu';
-// import React, { useState, MouseEvent } from "react";
-
-// function CustomNav() {
-//   const [anchorNav, setAnchorNav] = useState<null | HTMLElement>(null);
-
-  
-//   const openMenu = (event:MouseEvent<HTMLElement>) => {
-//     if (event.currentTarget instanceof HTMLElement) {
-//       setAnchorNav(event.currentTarget);
-//     }
-//   };
-//   const closeMenu = () => {
-//     setAnchorNav(null);
-//   };
-
-//   return (
-//     <AppBar position="static" sx={{ backgroundColor: 'blue' }}>
-//       <Toolbar>
-//         <IconButton
-//           size="large"
-//           edge="start"
-//           color="inherit"
-//           aria-label="logo"
-//           sx={{ display: { xs: 'none', md: 'flex' } }}
-//         >
-//           <ProductionQuantityLimitsIcon />
-//         </IconButton>
-//         <Typography variant="h6" component="div" sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-//           Sale Order
-//         </Typography>
-//         <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
-//           <Button style={{ color: 'white' }}>Home</Button>
-//           <Button style={{ color: 'white' }}>Customers</Button>
-//           <Button style={{ color: 'white' }}>Products</Button>
-//           <Button style={{ color: 'white' }}>Sales Order</Button>
-//         </Box>
-//         <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
-//           <IconButton size="large" edge="start" color="inherit" onClick={openMenu}>
-//             <MenuIcon />
-//           </IconButton>
-//           <Menu
-//             anchorEl={anchorNav} // Set anchorEl to anchorNav
-//             open={Boolean(anchorNav)}
-//             onClose={closeMenu}
-//             sx={{ display: { xs: 'flex', md: 'none' } }}
-//           >
-//             <MenuItem onClick={closeMenu}>Home</MenuItem>
-//             <MenuItem onClick={closeMenu}>Customer</MenuItem>
-//             <MenuItem onClick={closeMenu}>Product</MenuItem>
-//             <MenuItem onClick={closeMenu}>Sales Order</MenuItem>
-//           </Menu>
-//           <IconButton
-//             size="large"
-//             edge="start"
-//             color="inherit"
-//             aria-label="logo"
-//             sx={{ display: { xs: 'flex', md: 'none' } }}
-//           >
-//             <ProductionQuantityLimitsIcon />
-//           </IconButton>
-//           <Typography variant="h6" component="div" sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
-//             Sale Order
-//           </Typography>
-//         </Box>
-//       </Toolbar>
-//     </AppBar>
-//   );
-// }
-
-// export default CustomNav;
 

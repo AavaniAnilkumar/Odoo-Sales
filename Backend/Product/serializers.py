@@ -1,68 +1,48 @@
-
-
 from rest_framework import serializers
 from .models import *
 
-class ProductSerializer(serializers.ModelSerializer):
-    sales_price = serializers.SerializerMethodField(read_only= True)
-    class Meta:
-        model = Products
-        fields = '__all__'
-
-    def create(self, validated_data):
-        # Extract and remove 'sales_price' from validated_data as it's not a model field
-        sales_price = validated_data.pop('sales_price', None)
-
-        # Create the product instance using the remaining validated data
-        product = Products.objects.create(**validated_data)
-
-        # Set the 'sales_price' manually if it's provided
-        if sales_price is not None:
-            product.sales_price = sales_price
-            product.save()
-
-        return product
-    
-    def get_sales_price(self, obj):
-        return obj.calculate_sales_price()
-    
-
 class CustomerSerializer(serializers.ModelSerializer):
-    photo_url = serializers.SerializerMethodField()
-
-    def get_photo_url(self, obj):
-        if obj.photo:
-            return obj.photo.url
-        return None
-
     class Meta:
         model = Customer
-        # fields = '_all_'
-        fields = ['id', 'name', 'address', 'city', 'state', 'zip_code', 'country', 'photo','photo_url']
+        fields = '__all__'
 
-        
-class ContactSerializer(serializers.ModelSerializer):
+class ProductSerializer(serializers.ModelSerializer):
     class Meta:
-        model=Contact
-        # fields='_all_'
-        fields = ['id', 'customer_id', 'email', 'mobile']
+        model =Product
+        fields ='__all__'
+
 
 class OrderProductSerializer(serializers.ModelSerializer):
     
-    def to_representation(self, instance):
-        representation = super().to_representation(instance)
-        representation['product'] = ProductSerializer(instance.product).data
-
-        return representation
-
     
     class Meta:
         model = OrderProduct
         fields = '__all__'
 
+    def to_representation(self, instance):
+         representation = super().to_representation(instance)
+         representation['product'] = ProductSerializer(instance.product).data
+
+         return representation
+
+
+    def create(self, validated_data):
+        product = validated_data['product']
+        unit_price = validated_data['unit_price']
+        quantity = validated_data['quantity']
+        discount = validated_data.get('discount', 0)  # Default to 0 if discount is not provided
+        additional_taxes = validated_data.get('additional_taxes', 0)  # Default to 0 if additional_taxes is not provided
+        
+        subtotal_price = (unit_price * quantity) + (unit_price * additional_taxes * quantity) - discount
+        
+        # Set subtotal_price in validated data
+        validated_data['subtotal_price'] = subtotal_price
+        
+        return super().create(validated_data)
+    
+
 class SaleOrderSerializer(serializers.ModelSerializer):
     products = ProductSerializer(many=True, read_only=True)
-    order_products = OrderProductSerializer(many=True, write_only=True)
 
     class Meta:
         model = SaleOrder
@@ -70,6 +50,8 @@ class SaleOrderSerializer(serializers.ModelSerializer):
 
     def to_representation(self, instance):
         representation = super().to_representation(instance)
+
+        representation['id'] = f'S{str(instance.id).zfill(4)}'
 
         # Include serialized data for customer
         representation['customer'] = CustomerSerializer(instance.customer).data
@@ -80,63 +62,24 @@ class SaleOrderSerializer(serializers.ModelSerializer):
 
         return representation
 
-    
-    
-    # def create(self, validated_data):
-    #     order_products_data = validated_data.pop('order_products')
-    #     sale_order = SaleOrder.objects.create(**validated_data)
-
-    #     total_price = 0  # Initialize total price
-
-    #     for order_product_data in order_products_data:
-    #         # order_product_data['sale_order'] = sale_order
-    #         product = order_product_data['product']
-    #         quantity = order_product_data['quantity']
-    #         discount=order_product_data['discount']
-    #         additional_taxes=order_product_data['additional_taxes']
-    #         subtotal_price = (product.sales_price * quantity)+(product.sales_price*additional_taxes*quantity)-discount
-
-    #         total_price += subtotal_price  # Update total price
-
-    #         OrderProduct.objects.create(
-    #             sale_order=sale_order,
-    #             product=product,
-    #             quantity=quantity,
-    #             discount=discount,
-    #             additional_tax=additional_taxes,
-    #             subtotal_price=subtotal_price
-    #         )
-
-    #     sale_order.total_price = total_price  # Set the total price
-    #     sale_order.save()
-
-    #     return sale_order
-
     def create(self, validated_data):
-        order_products_data = validated_data.pop('order_products')
         sale_order = SaleOrder.objects.create(**validated_data)
 
-        total_price = 0  # Initialize total price
+        total_price = 0  
 
-        for order_product_data in order_products_data:
-            product = order_product_data['product']
-            quantity = order_product_data['quantity']
-            discount = order_product_data['discount']
-            additional_taxes = order_product_data['additional_taxes']  # Corrected field name
-            subtotal_price = (product.sales_price * quantity) + (product.sales_price * additional_taxes * quantity) - discount
+        # Filter OrderProducts not associated with any SaleOrder
+        order_products_to_update = OrderProduct.objects.filter(sale_order__isnull=True)
 
-            total_price += subtotal_price  # Update total price
+        for order_product in order_products_to_update:
+            # Update the SaleOrder field in OrderProduct
+            order_product.sale_order = sale_order
+            order_product.save()
 
-            OrderProduct.objects.create(
-                sale_order=sale_order,
-                product=product,
-                quantity=quantity,
-                discount=discount,
-                additional_taxes=additional_taxes,  # Corrected field name
-                subtotal_price=subtotal_price
-            )
+            subtotal_price = order_product.subtotal_price
+            if subtotal_price is not None:
+                total_price += subtotal_price  
 
-        sale_order.total_price = total_price  # Set the total price
+        sale_order.total_price = total_price  
         sale_order.save()
 
         return sale_order

@@ -1,34 +1,50 @@
 import React, { useState, useEffect } from 'react';
 import './home.css';
+import BASE_URL from '../../config';
+import { Box } from '@mui/material';
+import CircularProgress from '@mui/material/CircularProgress';
+
 const Home = () => {
   const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Fetch data from the backend API endpoint
-    fetch('http://localhost:8000/product/')
-      .then((response) => response.json())
-      .then((data) => setProducts(data))
-      .catch((error) => console.error('Error fetching data:', error));
+    // Simulating a delay of 1 second
+    const delay = setTimeout(() => {
+      fetch(`${BASE_URL}/view-products/`)
+        .then((response) => response.json())
+        .then((data) => {
+          setProducts(data);
+          setLoading(false);
+        })
+        .catch((error) => {
+          console.error('Error fetching data:', error);
+          setLoading(false);
+        });
+    }, 100);
+
+    return () => clearTimeout(delay);
   }, []);
 
+  if (loading) {
+    return (
+      <Box sx={{ display: 'flex', justifyContent: 'center', marginLeft: '48%', height: '100vh', marginTop:'12%' }}>
+        <CircularProgress color='secondary' />
+      </Box>
+    );
+  }
+
   return (
-    <div style={{marginLeft: '200px'}}>
-      <h1 style={{marginLeft:'10px',fontFamily:'serif'}}>Available Products</h1>
+    <div className="home-container">
+      <u><h1 className="page-title">Available Products</h1></u>
       {/* Display product images */}
-      <div className="product-container" style={{marginTop: '70px'}}>
+      <div className="product-container">
         {products.map((product) => (
           <img
             key={product.id}
-            src={product.product_image}
-            alt={product.product_name}
-            className="fade-in"
-            style={{ maxWidth: '200px', maxHeight: '200px', margin: '30px' ,
-           
-
-            borderRadius: '8px',
-
-                
-          }}
+            src={`${BASE_URL}/${product.image}`}
+            alt={product.name}
+            className="product-image fade-in"
           />
         ))}
       </div>

@@ -16,7 +16,8 @@ import CollapsibleTable from './ProductTable';
 import CustomizedTables from './ProductTable';
 import BASE_URL from '../../config';
 import { PRODUCT_TYPES } from '../../utils/product';
-
+import Popup from '../Popupbox';
+import IconAlerts from '../Popupbox';
 const VisuallyHiddenInput = styled('input')({
   clip: 'rect(0 0 0 0)',
   clipPath: 'inset(50%)',
@@ -58,9 +59,11 @@ export default function Product() {
 
   const [productTypes, setProductTypes] = useState([]);
   const [updatedProducts, setUpdatedProducts] = useState([]);
+  const [showAlert, setShowAlert] =useState(false);
 
-
-
+  const handleCloseAlert =() =>{
+    setShowAlert(false);
+  }
   const handleSubmit = async () => {
     console.log("Submitting data", productData);
   
@@ -103,6 +106,8 @@ formData.append('company', productData.company);  // Ensure this is a valid ID o
         });
         const updatedProducts = await axios.get('http://localhost:8000/product/');
         setUpdatedProducts(response.data);
+        setShowAlert(true);
+
         // Optionally, you can refresh the product list or perform other actions after successful submission.
       } else {
         console.log('Failed to add Product');
@@ -154,14 +159,12 @@ formData.append('company', productData.company);  // Ensure this is a valid ID o
 
   return (
     <div>
-      <h1 style={{marginLeft:'10px',fontFamily:'serif'}}> Products </h1>
+      <h1 style={{marginLeft:'150px',fontFamily:'serif'}}> Products </h1>
       <div style={{ display: 'flex', justifyContent: 'space-between', marginLeft: '800px' }}>
   <Button onClick={handleOpen} style={{ backgroundColor: 'blue', color: 'white', marginRight: '10px' }}>
     Add Products
   </Button>
-  <Button onClick={goBack} style={{ backgroundColor: 'blue', color: 'white' }}>
-    Back
-  </Button>
+
 </div>
 
       <Modal
@@ -271,12 +274,15 @@ formData.append('company', productData.company);  // Ensure this is a valid ID o
 
         </Box>
       </Modal>
+      {showAlert &&(
+        <IconAlerts message="Product Added Successfully.....!!!!!!" success={true} onClose={handleCloseAlert}/>
+      )}
      
       <div>
         <CustomizedTables updatedProducts={updatedProducts}/>
       </div>
 
-    
+    {/* {showPopUp && <Popup />} */}
     </div>
     
   );

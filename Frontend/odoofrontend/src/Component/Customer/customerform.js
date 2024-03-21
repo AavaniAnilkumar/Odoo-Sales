@@ -1,273 +1,9 @@
-// import React, { useState } from 'react';
-// import { TextField, Button, Grid, Typography } from '@mui/material';
-
-// const CustomerForm = () => {
-//   const [customer, setCustomer] = useState({
-//     name: '',
-//     address: '',
-//     city: '',
-//     state: '',
-//     zip_code: '',
-//     country: ''
-//   });
-
-//   const handleChange = (e) => {
-//     const { name, value } = e.target;
-//     setCustomer(prevCustomer => ({
-//       ...prevCustomer,
-//       [name]: value
-//     }));
-//   };
-
-//   const handleSubmit = (e) => {
-//     e.preventDefault();
-//     // Handle form submission (e.g., send data to backend)
-//     console.log(customer);
-//   };
-
-//   return (
-//     <form onSubmit={handleSubmit}>
-//       <Typography variant="h5" gutterBottom>
-//         Customer Form
-//       </Typography>
-//       <Grid container spacing={2}>
-//         <Grid item xs={12}>
-//           <TextField
-//             name="name"
-//             label="Name"
-//             fullWidth
-//             value={customer.name}
-//             onChange={handleChange}
-//           />
-//         </Grid>
-//         <Grid item xs={12}>
-//           <TextField
-//             name="address"
-//             label="Address"
-//             fullWidth
-//             multiline
-//             rows={2}
-//             value={customer.address}
-//             onChange={handleChange}
-//           />
-//         </Grid>
-//         <Grid item xs={12} sm={6}>
-//           <TextField
-//             name="city"
-//             label="City"
-//             fullWidth
-//             value={customer.city}
-//             onChange={handleChange}
-//           />
-//         </Grid>
-//         <Grid item xs={12} sm={6}>
-//           <TextField
-//             name="state"
-//             label="State"
-//             fullWidth
-//             value={customer.state}
-//             onChange={handleChange}
-//           />
-//         </Grid>
-//         <Grid item xs={12} sm={6}>
-//           <TextField
-//             name="zip_code"
-//             label="Zip Code"
-//             fullWidth
-//             value={customer.zip_code}
-//             onChange={handleChange}
-//           />
-//         </Grid>
-//         <Grid item xs={12} sm={6}>
-//           <TextField
-//             name="country"
-//             label="Country"
-//             fullWidth
-//             value={customer.country}
-//             onChange={handleChange}
-//           />
-//         </Grid>
-//         <Grid item xs={12}>
-//           <Button variant="contained" color="primary" type="submit">
-//             Submit
-//           </Button>
-//         </Grid>
-//       </Grid>
-//     </form>
-//   );
-// };
-
-// export default CustomerForm;
 
 
 import React, { useState } from 'react';
 import { TextField, Button, Grid, Typography, Paper } from '@mui/material';
 import CustomerTable from './customertable';
 
-// const CustomerForm = () => {
-//   const [customer, setCustomer] = useState({
-//     name: '',
-//     address: '',
-//     city: '',
-//     state: '',
-//     zip_code: '',
-//     country: ''
-//   });
-
-//   const handleChange = (e) => {
-//     const { name, value } = e.target;
-//     setCustomer(prevCustomer => ({
-//       ...prevCustomer,
-//       [name]: value
-//     }));
-//   };
-
-//   const handleSubmit = async (e) => {
-//     e.preventDefault();
-//     try {
-//       const response = await fetch('http://localhost:8000/api/create-customer/', {
-//         method: 'POST',
-//         headers: {
-//           'Content-Type': 'application/json'
-//         },
-//         body: JSON.stringify(customer)
-//       });
-//       if (response.ok) {
-//         console.log('Customer created successfully');
-//         // Optionally, you can reset the form after successful submission
-//         setCustomer({
-//           name: '',
-//           address: '',
-//           city: '',
-//           state: '',
-//           zip_code: '',
-//           country: ''
-//         });
-//       } else {
-//         console.error('Failed to create customer:', response.statusText);
-//         throw new Error('Failed to create customer');
-//       }
-//     } catch (error) {
-//       console.error('Error:', error);
-//       throw new Error('Failed to fetch');
-//     }
-//   };
-// const CustomerForm = () => {
-//   const [customer, setCustomer] = useState({
-//     name: '',
-//     address: '',
-//     city: '',
-//     state: '',
-//     zip_code: '',
-//     country: ''
-//   });
-
-//   const [shouldRefreshTable, setShouldRefreshTable] = useState(false); // New state
-
-//   const handleChange = (e) => {
-//     const { name, value } = e.target;
-//     setCustomer(prevCustomer => ({
-//       ...prevCustomer,
-//       [name]: value
-//     }));
-//   };
-
-//   const handleSubmit = async (e) => {
-//     e.preventDefault();
-//     try {
-//       const response = await fetch('http://localhost:8000/api/create-customer/', {
-//         method: 'POST',
-//         headers: {
-//           'Content-Type': 'application/json'
-//         },
-//         body: JSON.stringify(customer)
-//       });
-//       if (response.ok) {
-//         console.log('Customer created successfully');
-//         setShouldRefreshTable(true); // Trigger table refresh
-//         setCustomer({
-//           name: '',
-//           address: '',
-//           city: '',
-//           state: '',
-//           zip_code: '',
-//           country: ''
-//         });
-//       } else {
-//         console.error('Failed to create customer:', response.statusText);
-//         throw new Error('Failed to create customer');
-//       }
-//     } catch (error) {
-//       console.error('Error:', error);
-//       throw new Error('Failed to fetch');
-//     }
-//   };
-// const CustomerForm = () => {
-//   const [customer, setCustomer] = useState({
-//     name: '',
-//     address: '',
-//     city: '',
-//     state: '',
-//     zip_code: '',
-//     country: '',
-//     photo: null // Add photo field to the state
-//   });
-
-//   const [shouldRefreshTable, setShouldRefreshTable] = useState(false);
-
-//   const handleChange = (e) => {
-//     const { name, value, files } = e.target;
-//     if (files) {
-//       setCustomer(prevCustomer => ({
-//         ...prevCustomer,
-//         [name]: files[0] // Store the selected file
-//       }));
-//     } else {
-//       setCustomer(prevCustomer => ({
-//         ...prevCustomer,
-//         [name]: value
-//       }));
-//     }
-//   };
-
-//   const handleSubmit = async (e) => {
-//     e.preventDefault();
-//     try {
-//       const formData = new FormData();
-//       formData.append('name', customer.name);
-//       formData.append('address', customer.address);
-//       formData.append('city', customer.city);
-//       formData.append('state', customer.state);
-//       formData.append('zip_code', customer.zip_code);
-//       formData.append('country', customer.country);
-//       formData.append('photo', customer.photo); // Append photo to the form data
-
-//       const response = await fetch('http://localhost:8000/api/create-customer/', {
-//         method: 'POST',
-//         body: formData
-//       });
-
-//       if (response.ok) {
-//         console.log('Customer created successfully');
-//         setShouldRefreshTable(true);
-//         setCustomer({
-//           name: '',
-//           address: '',
-//           city: '',
-//           state: '',
-//           zip_code: '',
-//           country: '',
-//           photo: null // Reset photo field after successful submission
-//         });
-//       } else {
-//         console.error('Failed to create customer:', response.statusText);
-//         throw new Error('Failed to create customer');
-//       }
-//     } catch (error) {
-//       console.error('Error:', error);
-//       throw new Error('Failed to fetch');
-//     }
-//   };
 
 
 const CustomerForm = () => {
@@ -335,6 +71,7 @@ const CustomerForm = () => {
         email: '',
         mobile: ''
       });
+      window.location.reload();
       
 
     } else {
@@ -348,7 +85,7 @@ const CustomerForm = () => {
 };
 
   return (
-    <Paper elevation={3} style={{ padding: 20 ,marginTop:'100px'}}>
+    <Paper elevation={3} style={{ padding: 20 }}>
       <Typography variant="h5" gutterBottom style={{marginLeft:'50px',fontFamily:'serif'}}>
         Customer Form
       </Typography>
@@ -456,15 +193,10 @@ const CustomerForm = () => {
         </Grid>
       </form>
       ) : (
-        // <CustomerTable shouldRefreshTable={shouldRefreshTable} setShouldRefreshTable={setShouldRefreshTable} />
+       
 <CustomerTable shouldRefreshTable={shouldRefreshTable} setShouldRefreshTable={setShouldRefreshTable} />
 
       )}
-{/* 
-      <Grid item xs={12}>
-        <CustomerTable />
-      </Grid> */}
-            {/* <CustomerTable shouldRefreshTable={shouldRefreshTable} setShouldRefreshTable={setShouldRefreshTable} /> */}
 
     </Paper>
     

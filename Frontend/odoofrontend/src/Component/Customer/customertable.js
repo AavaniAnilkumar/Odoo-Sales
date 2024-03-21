@@ -154,7 +154,7 @@ const CustomerTable = ({ shouldRefreshTable, setShouldRefreshTable }) => {
     
 
   return (
-    <div style={{width:'50%', marginLeft:'290px', marginTop: '50px'}}>
+    <div style={{ width: '80%', marginLeft: '100px', marginTop: '50px'}}>
       {!showCreateCustomerPage ? (
         <>
          <h1 style={{marginLeft:'10px',fontFamily:'serif'}}> Customer </h1> <br />
@@ -180,7 +180,7 @@ const CustomerTable = ({ shouldRefreshTable, setShouldRefreshTable }) => {
     )}
   </TableCell>
   
-                    <TableCell>{customer.name}</TableCell>
+                    <TableCell style={{ verticalAlign: 'middle' }}>{customer.name}</TableCell>
                     <TableCell>
                       <Button variant="outlined" color="primary" onClick={() => handleDetailClick(customer)}>Details</Button>
                     </TableCell>
@@ -197,7 +197,7 @@ const CustomerTable = ({ shouldRefreshTable, setShouldRefreshTable }) => {
   {selectedCustomer ? (
   <div>
     <div style={{ textAlign: 'center' }}>
-      {selectedCustomer.photo && (
+    {selectedCustomer.photo && (
         <div>
           <img src={`http://localhost:8000${selectedCustomer.photo}`} alt={selectedCustomer.name} style={{ width: 150, height: 150, borderRadius: '50%' }} />
         </div>

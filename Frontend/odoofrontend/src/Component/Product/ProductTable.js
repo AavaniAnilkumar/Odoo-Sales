@@ -34,6 +34,8 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
   },
 }));
 
+
+
 const DetailsTable = ({ selectedProduct }) => {
   return (
     <TableContainer component={Paper} style={{ position: 'absolute', top: '300px', left: '590px', width: 'fit-content' }}>

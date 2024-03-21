@@ -14,31 +14,23 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path,include
 from Product.views import *
 from django.conf import settings
 from django.conf.urls.static import static
-
+# import Product.urls
 urlpatterns = [
     path('admin/', admin.site.urls),
    
 
-
-    path('product/',ProductListCreateView.as_view(),name='product-list-create'),
-    path('product/<int:pk>/',ProductDetailView.as_view(),name='product-details'),
-
-
-    path('create-customer/', create_customer, name='create-customer'),
-    path('customers/',list_customers, name='list-customers'),
-    path('customers/<int:pk>/', retrieve_customer, name='retrieve-customer'),
-    path('customers/<int:pk>/update/', update_customer, name='update_customer'),  # URL for updating a customer
-    path('create-contact/', create_contact, name='create-contact'),
-    path('contacts/', list_contacts, name='list-contacts'),
-    path('contacts/<int:pk>/', retrieve_contact, name='retrieve-contact'),
-    path('customer_contact/<customer_id>/',customer_contact,name='customer_contact'),
-    path('customer_contact/<customer_id>/update/',update_customer_contact,name='update_customer_contact'),
-    path('saleorders/', SaleOrderListCreateView.as_view(), name='saleorder-list-create'),
-    path('orderproducts/', OrderProductListCreateView.as_view(), name='orderproduct-list-create'),
+   path('odoo-integration/',odoo_integration),
+   path('odoo-customers/', OdooCustomerView.as_view(), name='odoo_customers'),
+   path('view-customers/',CustomerAPIView.as_view(),name='view customer'),
+   path('odoo-products/',OdooProductView.as_view(), name='odoo-products'),
+   path('view-products/',ProductAPIView.as_view(),name='view-products'),
+   path('saleorders/', SaleOrderListCreateView.as_view(), name='saleorder-list-create'),
+   path('orderproducts/', OrderProductListCreateView.as_view(), name='orderproduct-list-create'),
+   path('orderproducts/delete/', OrderProductDeleteView.as_view(), name='order-product-delete'),
    
 ]
 if settings.DEBUG:

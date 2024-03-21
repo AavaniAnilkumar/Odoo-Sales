@@ -40,7 +40,6 @@ INSTALLED_APPS = [
     'Product',
     'rest_framework',
     'corsheaders'
-
 ]
 
 MIDDLEWARE = [
@@ -51,15 +50,19 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-     'corsheaders.middleware.CorsMiddleware'
+    'corsheaders.middleware.CorsMiddleware'
 ]
 
+
 ROOT_URLCONF = 'Backend.urls'
+
 CORS_ALLOWED_ORIGINS = [
-    "http://localhost:3000",  # or the URL of your React app
-    # Add more origins as needed
+    "http://localhost:3000", 
 ]
+
 CORS_ALLOW_ALL_ORIGINS = True
+
+
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
@@ -88,6 +91,17 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': 'odootest',
+#         'USER': 'postgres',
+#         'PASSWORD': 'aavani8*',
+#         'HOST': 'localhost',
+#         'PORT': '5432',
+#     }
+# }
+
 
 
 # Password validation
@@ -125,6 +139,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
 
 STATIC_URL = 'static/'
+
 # MEDIA_ROOT =BASE_DIR / 'media'
 # MEDIA_URL = '/media/'
 
